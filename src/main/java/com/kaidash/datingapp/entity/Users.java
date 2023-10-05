@@ -1,44 +1,38 @@
 package com.kaidash.datingapp.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
+import lombok.*;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Table(name = "users")
+@Getter @Setter @NoArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    @Column(name = "password")
+    private String userName;
     private String password;
-    @Column(name = "email")
     private String email;
+    private Date birthdate;
+    private String gender;
+    private String orientation;
+    private String profilePictureURL;
+    private String bio;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Users users = (Users) o;
-        return id != null && Objects.equals(id, users.id);
+        return Objects.equals(id, users.id) && Objects.equals(userName, users.userName) && Objects.equals(password, users.password) && Objects.equals(email, users.email) && Objects.equals(birthdate, users.birthdate) && Objects.equals(gender, users.gender) && Objects.equals(orientation, users.orientation) && Objects.equals(profilePictureURL, users.profilePictureURL) && Objects.equals(bio, users.bio);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, userName, password, email, birthdate, gender, orientation, profilePictureURL, bio);
     }
 }
