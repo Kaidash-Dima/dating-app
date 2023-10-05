@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: 17254
+Build-Jdk: Oracle OpenJDK version 17.0.8
+Implementation-Title: dating-app
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.kaidash
+Main-Class: ${start-class}
+
