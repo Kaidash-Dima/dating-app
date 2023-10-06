@@ -56,10 +56,22 @@
 				<configuration>
 					<excludes>
 						<exclude>
-							<groupId>org.projectlombok</groupId>
+							<groupId>org.project-lombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>3.0.7</version> <!-- This version might change; always check for the latest. -->
+				<configuration>
+					<appName>dating-app-test</appName>
+					<processTypes>
+						<!-- Tell Heroku how to run our application. -->
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/dating-app-0.0.1-SNAPSHOT.jar</web>
+					</processTypes>
 				</configuration>
 			</plugin>
 		</plugins>
