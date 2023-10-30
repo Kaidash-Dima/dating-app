@@ -23,6 +23,7 @@ public class User {
     private String orientation;
     private String profilePictureURL;
     private String bio;
+    private boolean accountDeleted = false;
 
     @ManyToMany
     @JoinTable(

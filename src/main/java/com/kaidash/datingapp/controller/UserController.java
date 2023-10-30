@@ -20,59 +20,61 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String userData(Principal principal){
-        return principal.getName();
+//    @GetMapping
+//    public String userData(Principal principal){
+//        return principal.getName();
+//    }
+
+    @GetMapping("/admin")
+    public String adminData() {
+        return "Admin data";
     }
 
 
-    // CREATE
-//    @PostMapping("/")
-//    public User createUser(@RequestBody User user) {
-//        return userService.save(user);
-//    }
+    // READ (single user by ID)
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> users = Optional.ofNullable(userService.findById(id));
+        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
-//    @GetMapping("/admin")
-//    public String adminData() {
-//        return "Admin data";
-//    }
-//    // READ (single user by ID)
-//    @GetMapping("/{id}")
-//    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-//        Optional<User> users = Optional.ofNullable(userService.findById(id));
-//        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-//
-    // READ (all users)
-//    @GetMapping("/")
-//    public List<User> getAllUsers() {
-//        return userService.findAll();
-//    }
-//
-//    // UPDATE
-//    @PutMapping("/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-//        User user = userService.findById(id);
-//        if (user == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        user.setUsername(updatedUser.getUsername());
-//        user.setEmail(updatedUser.getEmail());
-//        user.setPassword(updatedUser.getPassword());
-//
-//        userService.save(user);
-//        return ResponseEntity.ok(user);
-//    }
-//
-//    // DELETE
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-//        User user = userService.findById(id);
-//        if (user == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        userService.deleteById(id);
+     // READ (all users)
+    @GetMapping("/")
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User user = userService.findById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        user.setUsername(updatedUser.getUsername());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(updatedUser.getPassword());
+
+        userService.save(user);
+        return ResponseEntity.ok(user);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        User user = userService.findById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        user.setAccountDeleted(true);
+        userService.save(user);
 //        return ResponseEntity.noContent().build();
-//    }
+        return ResponseEntity.ok("User deleted");
+    }
+
+    @GetMapping("/active-users")
+    public List<User> getActiveUsers() {
+        return userService.getActiveUsers();
+    }
 }

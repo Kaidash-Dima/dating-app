@@ -54,22 +54,24 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
-//    public List<User> findAll() {
-//        return userRepository.findAll();
-//    }
-//
-//    public User findById(Long id) {
-//        return userRepository.findById(id).orElse(null);
-//    }
-//
-//    public User save(User user) {
-//        return userRepository.save(user);
-//    }
-//
-//    public void deleteById(Long id) {
-//        userRepository.deleteById(id);
-//    }
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public List<User> getActiveUsers() {
+        return userRepository.findUsersByAccountDeleted(false);
+    }
 
 }

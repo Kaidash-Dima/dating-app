@@ -1,9 +1,8 @@
 package com.kaidash.datingapp.config;
 
-import com.kaidash.datingapp.security.jwt.JwtTokenUtils;
+import com.kaidash.datingapp.security.JwtTokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.security.SecurityException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

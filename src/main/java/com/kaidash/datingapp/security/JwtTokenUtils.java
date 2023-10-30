@@ -1,4 +1,4 @@
-package com.kaidash.datingapp.security.jwt;
+package com.kaidash.datingapp.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

@@ -7,7 +7,7 @@ import com.kaidash.datingapp.dto.RegistrationUserDto;
 import com.kaidash.datingapp.dto.UserDto;
 import com.kaidash.datingapp.entity.User;
 import com.kaidash.datingapp.exceptions.AppError;
-import com.kaidash.datingapp.security.jwt.JwtTokenUtils;
+import com.kaidash.datingapp.security.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
