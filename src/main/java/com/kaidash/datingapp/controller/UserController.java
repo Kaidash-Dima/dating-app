@@ -1,10 +1,12 @@
 package com.kaidash.datingapp.controller;
 
-import com.kaidash.datingapp.entity.Users;
+import com.kaidash.datingapp.entity.User;
 import com.kaidash.datingapp.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,49 +20,59 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping
+    public String userData(Principal principal){
+        return principal.getName();
+    }
+
+
     // CREATE
-    @PostMapping("/")
-    public Users createUser(@RequestBody Users users) {
-        return userService.save(users);
-    }
+//    @PostMapping("/")
+//    public User createUser(@RequestBody User user) {
+//        return userService.save(user);
+//    }
 
-    // READ (single user by ID)
-    @GetMapping("/{id}")
-    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
-        Optional<Users> users = Optional.ofNullable(userService.findById(id));
-        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
+//    @GetMapping("/admin")
+//    public String adminData() {
+//        return "Admin data";
+//    }
+//    // READ (single user by ID)
+//    @GetMapping("/{id}")
+//    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+//        Optional<User> users = Optional.ofNullable(userService.findById(id));
+//        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+//    }
+//
     // READ (all users)
-    @GetMapping("/")
-    public List<Users> getAllUsers() {
-        return userService.findAll();
-    }
-
-    // UPDATE
-    @PutMapping("/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users updatedUser) {
-        Users users = userService.findById(id);
-        if (users == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        users.setUserName(updatedUser.getUserName());
-        users.setEmail(updatedUser.getEmail());
-        users.setPassword(updatedUser.getPassword());
-
-        userService.save(users);
-        return ResponseEntity.ok(users);
-    }
-
-    // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        Users users = userService.findById(id);
-        if (users == null) {
-            return ResponseEntity.notFound().build();
-        }
-        userService.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @GetMapping("/")
+//    public List<User> getAllUsers() {
+//        return userService.findAll();
+//    }
+//
+//    // UPDATE
+//    @PutMapping("/{id}")
+//    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+//        User user = userService.findById(id);
+//        if (user == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        user.setUsername(updatedUser.getUsername());
+//        user.setEmail(updatedUser.getEmail());
+//        user.setPassword(updatedUser.getPassword());
+//
+//        userService.save(user);
+//        return ResponseEntity.ok(user);
+//    }
+//
+//    // DELETE
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+//        User user = userService.findById(id);
+//        if (user == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        userService.deleteById(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }
