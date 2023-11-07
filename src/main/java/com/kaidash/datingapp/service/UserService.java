@@ -1,8 +1,11 @@
 package com.kaidash.datingapp.service;
 
 import com.kaidash.datingapp.dto.RegistrationUserDto;
+import com.kaidash.datingapp.entity.Interest;
 import com.kaidash.datingapp.entity.User;
+import com.kaidash.datingapp.repository.InterestRepository;
 import com.kaidash.datingapp.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +24,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final InterestRepository interestRepository;
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -74,4 +78,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findUsersByAccountDeleted(false);
     }
 
+    public void addInterestToUser(Long userId, Long interestId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Interest interest = interestRepository.findById(interestId).orElseThrow(() -> new EntityNotFoundException("Interest not found"));
+
+        user.getInterests().add(interest);
+        userRepository.save(user);
+    }
 }

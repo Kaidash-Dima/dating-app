@@ -1,13 +1,11 @@
 package com.kaidash.datingapp.controller;
 
 import com.kaidash.datingapp.entity.User;
+import com.kaidash.datingapp.service.InterestService;
 import com.kaidash.datingapp.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,28 +18,12 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping
-//    public String userData(Principal principal){
-//        return principal.getName();
-//    }
-
-    @GetMapping("/admin")
-    public String adminData() {
-        return "Admin data";
-    }
-
 
     // READ (single user by ID)
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> users = Optional.ofNullable(userService.findById(id));
         return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-     // READ (all users)
-    @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userService.findAll();
     }
 
     // UPDATE
@@ -73,8 +55,10 @@ public class UserController {
         return ResponseEntity.ok("User deleted");
     }
 
-    @GetMapping("/active-users")
-    public List<User> getActiveUsers() {
-        return userService.getActiveUsers();
+    @PostMapping("/addInterest")
+    public ResponseEntity<Void> addInterestToUser(@RequestParam Long userId, @RequestParam Long interestId) {
+        userService.addInterestToUser(userId, interestId);
+        return ResponseEntity.noContent().build();
     }
+
 }
