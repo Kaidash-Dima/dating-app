@@ -3,6 +3,7 @@ package com.kaidash.datingapp.controller;
 import com.kaidash.datingapp.dto.JwtRequest;
 import com.kaidash.datingapp.dto.RegistrationUserDto;
 import com.kaidash.datingapp.service.AuthService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
