@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin").hasRole("ADMIN");
-                    auth.requestMatchers("/users").authenticated();
+                    auth.requestMatchers("/users", "/matches").authenticated();
                     auth.requestMatchers("/login").permitAll();
                     auth.requestMatchers("/registration").permitAll();
                     auth.requestMatchers("/auth").permitAll();

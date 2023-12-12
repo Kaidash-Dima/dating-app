@@ -3,10 +3,7 @@ package com.kaidash.datingapp.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -42,4 +39,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "interest_id")
     )
     private Set<Interest> interests = new HashSet<>();
+
+    @OneToMany(mappedBy = "user2")
+    private List<Match> matches;
 }
